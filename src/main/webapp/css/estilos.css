@@ -1,0 +1,122 @@
+@charset "UTF-8";
+body {
+ background-color: #33658a;
+ }
+header .logo {
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 20px; 
+}
+
+#logo {
+    width: 300px; 
+    height: auto; 
+    margin-right: 15px; 
+}
+
+h1 {
+ color: #CCD1E0;
+ text-align: center;
+ font-family: 'Times New Roman', Times, serif;
+}
+h3 {
+ color: #CCD1E0;
+ text-align: center;
+ font-family: 'Times New Roman', Times, serif;
+}
+#favorito {
+border: 1px solid rgb(128, 128, 192);
+color: rgb(0, 255, 255);
+}
+.destacado {
+ font-weight: bold;
+ color: #9C9EAB;
+ text-align: center;
+}
+p {
+ font-family: verdana;
+ font-size: 14px;
+ text-align: justify;
+ color: #CCD1E0
+}
+
+header, nav, section, article, footer{
+border:1px solid black;
+display: block;
+}
+header {
+ background-color: #00192d;
+ padding: 20px 10px;
+}
+nav {
+ overflow: hidden;
+ background-color: #bfacb5;
+ padding: 10px 5px;
+}
+.agrupar
+{
+border:1px;
+margin: auto;
+width:960px;
+}
+section {
+margin:20px;
+width: 600px;
+float:left;
+/*background:gray;*/
+}
+
+aside{
+margin: 20px;
+padding: 30px;
+width:200px;
+border: 1px;
+float:right;
+/*background:gray;*/
+align-items: center;
+}
+.mapa{
+	display: block;
+	margin: 20px auto;
+}
+
+footer {
+ overflow: hidden;
+ background-color: #bfacb5;
+ padding: 20px 10px;
+ text-align: center;
+ clear:both;
+}
+footer li{
+list-style: none;
+font:bold 14px verdana;
+padding: 10px;
+display: inline-block;
+}
+
+nav a {
+ float: left;
+ color: black;
+ text-align: center;
+ padding: 12px;
+ text-decoration: underline;
+ font-size: 18px;
+ line-height: 25px;
+ border-radius: 4px;
+}
+nav a:hover {
+ background-color: #ddd;
+ border:1px solid gray;
+ color: black;
+}
+
+nav a.active {
+ background-color: dodgerblue;
+ border:1px solid gray;
+ color: white;
+}
+
+img {
+  margin: 10px; 
+}
