@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.productos.seguridad;
 
 import java.sql.PreparedStatement;
@@ -227,3 +228,156 @@ public class Usuario {
 
 
 }
+=======
+package com.productos.seguridad;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.*;
+
+import com.productos.datos.ConexionUser; // Importar la clase ConexionUser
+
+public class Usuario {
+    private int id;
+    private int perfil;
+    private int estadoCivil;
+    private String cedula;
+    private String nombre;
+    private String correo;
+    private String Clave;
+
+    public Usuario() {
+        // Constructor vacío
+    }
+
+    public Usuario(int nperfiles, String nnombre, String ncedula, int nestado, String ncorreo, String nclave) {
+        this.nombre = nnombre;
+        this.cedula = ncedula;
+        this.estadoCivil = nestado;
+        this.correo = ncorreo;
+        this.Clave = nclave;
+        this.perfil = nperfiles;
+    }
+
+    // Getters y Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(int perfil) {
+        this.perfil = perfil;
+    }
+
+    public int getEstadoCivil() {
+        return estadoCivil;
+    }
+
+    public void setEstadoCivil(int estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getClave() {
+        return Clave;
+    }
+
+    public void setClave(String clave) {
+        Clave = clave;
+    }
+
+    // Método de verificación de usuario
+    public boolean verificarUsuario(String ncorreo, String nclave) {
+        boolean respuesta = false;
+
+        // Usamos ConexionUser para conectar a la base de datos USER
+        String sentencia = "SELECT * FROM tb_usuario WHERE correo_us='" + ncorreo +
+                "' AND clave_us='" + nclave + "';";
+
+        try {
+            // Crear una instancia de ConexionUser para consultar la base de datos USER
+            ConexionUser clsConUser = new ConexionUser();
+            ResultSet rs = clsConUser.Consulta(sentencia);
+
+            if (rs.next()) {
+                respuesta = true;
+                this.setCorreo(ncorreo);
+                this.setClave(nclave);
+                this.setPerfil(rs.getInt("id_per")); // Asumimos que el perfil es el segundo campo
+                this.setNombre(rs.getString("nombre_us")); // Asumimos que el nombre está en el tercer campo
+            } else {
+                respuesta = false;
+                rs.close();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return respuesta;
+    }
+    public String ingresarCliente()
+	{
+		String result="";
+		ConexionUser con=new ConexionUser();
+		PreparedStatement pr=null;
+		String sql="INSERT INTO tb_usuario (id_per, id_est, nombre_us,"
+		+ "cedula_us,correo_us,clave_us) "
+		+ "VALUES(?,?,?,?,?,?)";
+		try{
+			pr=con.getConexion().prepareStatement(sql);
+			pr.setInt(1,2);
+			pr.setInt(2, this.getEstadoCivil());
+			pr.setString(3, this.getNombre());
+			pr.setString(4, this.getCedula());
+			pr.setString(5, this.getCorreo());
+			pr.setString(6, this.getClave());
+			if(pr.executeUpdate()==1){
+			result="Insercion correcta";
+			}else{
+			result="Error en insercion";
+			}
+		}catch(Exception ex){
+			result=ex.getMessage();
+			System.out.print(result);
+		}finally{
+			try{
+				pr.close();
+			 	con.getConexion().close();
+			}catch(Exception ex){
+				System.out.print(ex.getMessage());
+			}
+		}
+		return result;
+	}
+}
+>>>>>>> b5bb55670ba02e47cc9202b0fab133c23613b6bd
