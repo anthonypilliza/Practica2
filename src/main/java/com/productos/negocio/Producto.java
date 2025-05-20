@@ -96,6 +96,64 @@ public class Producto {
         tabla += "</tbody></table>";
         return tabla;
     }
+    
+    public String eliminarProductoPorId(int id) {
+        String sql = "DELETE FROM tb_producto WHERE id_pr = " + id;
+        Conexion con = new Conexion();
+        return con.Ejecutar(sql);
+    }
+
+    public Object[] obtenerProductoPorId(int id) {
+        String sql = "SELECT pr.nombre_pr, cat.descripcion_cat " +
+                     "FROM tb_producto pr, tb_categoria cat " +
+                     "WHERE pr.id_cat = cat.id_cat AND pr.id_pr = " + id;
+        Conexion con = new Conexion();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                return new Object[]{ rs.getString(1), rs.getString(2) };
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public String insertarProducto(String nombre, int idCategoria, int cantidad, double precio) {
+        String sql = "INSERT INTO tb_producto(id_cat, nombre_pr, cantidad_pr, precio_pr) " +
+                     "VALUES(" + idCategoria + ", '" + nombre + "', " + cantidad + ", " + precio + ")";
+        Conexion con = new Conexion();
+        return con.Ejecutar(sql);
+    }
+    
+    public String actualizarProducto(int id, String nombre, int idCategoria, int cantidad, double precio) {
+        String sql = "UPDATE tb_producto SET "
+                   + "nombre_pr = '" + nombre + "', "
+                   + "id_cat = " + idCategoria + ", "
+                   + "cantidad_pr = " + cantidad + ", "
+                   + "precio_pr = " + precio + " "
+                   + "WHERE id_pr = " + id;
+        Conexion con = new Conexion();
+        return con.Ejecutar(sql);
+    }
+    public Object[] obtenerProductoCompletoPorId(int id) {
+        String sql = "SELECT nombre_pr, id_cat, cantidad_pr, precio_pr FROM tb_producto WHERE id_pr = " + id;
+        Conexion con = new Conexion();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                return new Object[]{
+                    rs.getString("nombre_pr"),
+                    rs.getInt("id_cat"),
+                    rs.getInt("cantidad_pr"),
+                    rs.getDouble("precio_pr")
+                };
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
 }
